@@ -5,29 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Application</title>
     <link rel="stylesheet" href="./public/css/base.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer type="module" src="./js/quiz.js"></script>
 </head>
 <body>
+    <main>
 
-    <section class="quiz-wrapper">
-        <div class="quiz-progress" id="quizProgress">
-            <!-- <span class="seen"></span><span></span> -->
-        </div>
+        <section class="quiz-wrapper">
+            <div class="quiz-progress" id="quizProgress">
+                <!-- <span class="seen"></span><span></span> -->
+            </div>
+    
+            <div class="question-container" id="questionContainer">
+                <p class="topic" id="topic"></p>
+                <p class="current-question" id="currentQuestion"></p>
+            </div>
+            <div class="answer-container" id="answerContainer">
+                <!-- <button value="1500">1000 - 2000KWH</button>
+                <button value="2500">2000 - 3000KWH</button>
+                <button value="3500">3000 - 3500KWH</button> -->
+            </div>
+    
+            <div class="nav-wrapper">
+                <button id="backBtn">Back</button>
+            </div>
+        </section>
 
-        <div class="question-container" id="questionContainer">
-            <p class="topic" id="topic"></p>
-            <p class="current-question" id="currentQuestion"></p>
-        </div>
-        <div class="answer-container" id="answerContainer">
-            <!-- <button value="1500">1000 - 2000KWH</button>
-            <button value="2500">2000 - 3000KWH</button>
-            <button value="3500">3000 - 3500KWH</button> -->
-        </div>
+        <!-- <section class="results">
+            <p class="total-footprint" id="totalFootprint">78 <span class="unit">t</span></p>
 
-        <div class="nav-wrapper">
-            <button id="backBtn">Back</button>
+            <div class="chart-js" id="chartJs">
+
+                <canvas id="myCanvas"></canvas>
+            </div>
+        </section> -->
+    </main> 
+    
+    
+    <section class="results">
+        <p class="total-footprint" id="totalFootprint">78 <span class="unit">t</span></p>
+
+        <div class="chart-js" id="chartJs">
+
+            <canvas id="myCanvas"></canvas>
         </div>
     </section>
 
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    
 </body>
+
 </html>

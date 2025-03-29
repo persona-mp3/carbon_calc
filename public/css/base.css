@@ -9,6 +9,22 @@ body {
   background-color: rgb(34, 32, 32);
   color: white;
   font-family: "Poppins", Helvetica, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.28rem;
+}
+main section {
+  margin: 0 auto;
 }
 
 button {
@@ -22,6 +38,7 @@ button {
   border-radius: 0.4rem;
   transition: all ease 0.4s;
 }
+
 button:hover {
   background-color: rgb(39, 86, 124);
   border: 1px solid transparent;
@@ -31,9 +48,10 @@ button:hover {
 
 .quiz-wrapper {
   margin: 0 auto;
-  width: 60%;
+  width: 80%;
   display: flex;
   flex-direction: column;
+  align-self: center;
   align-items: flex-start;
   gap: 1rem;
 }
@@ -43,7 +61,7 @@ button:hover {
   justify-content: flex-start;
   gap: 0.4rem;
   padding-top: 0.6rem;
-  width: 35%;
+  width: 50%;
 }
 
 span {
@@ -54,7 +72,7 @@ span {
 }
 
 .seen {
-  background-color: yellowgreen;
+  background-color: rgb(205, 50, 146);
 }
 
 .topic {
@@ -85,4 +103,43 @@ span {
   width: 80%;
   font-size: 1rem;
   text-align: center;
+}
+.answer-container button:hover {
+  border: 1px solid rgba(96, 189, 96, 0.952);
+  cursor: pointer;
+  transition: all ease 0.4s;
+}
+
+.results {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.chart-js {
+  width: 50%;
+}
+.chart-js #myCanvas {
+  width: 100%;
+}
+
+.total-footprint {
+  font-size: 26rem;
+  font-weight: 300;
+  color: rgb(51, 91, 143);
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+}
+.total-footprint span, .total-footprint .unit {
+  all: unset;
+  font-size: 9.25rem;
+  font-weight: 300;
+  font-style: italic;
+  width: fit-content;
+  height: fit-content;
+  color: rgb(182, 179, 179);
 }

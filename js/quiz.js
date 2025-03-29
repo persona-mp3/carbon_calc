@@ -9,23 +9,32 @@ const questions = [
 
 
     {
-        topic: 'Transportation',
+        topic: 'Travel',
         question: 'How many flights do you take per year',
         options: ['None', '1-2 Short Flights', '3-5 Short Flights', '1-4 Long flights'],
         values: [100, 1510, 2510, 4500]
     },
+    
+    {
+        topic: 'Commute',
+        question: 'If you drive, what is your approximate annual mileage?',
+        options: ['I do not own a car', 'Low (under 5,000 miles)', 'Average (5,000-10,000 miles)', 'High (10,000-15,000 miles+) '],
+        values: [0, 1000, 2500, 4000],  // CO2e values in kg/year
+        info: 'Based on average emissions of 250g CO2e/mile for standard vehicles'
+  
+    }, 
 
     {
         topic: 'Diet',
-        question: 'What is your primaty diet?',
+        question: 'What is your primary diet?',
         options: ['Vegan', 'Vegetarian', 'Pescatarian', 'Ominivore'],
         values: [100, 1510, 2510, 4500]
     },
     {
         topic: 'water',
-        question: 'How much water do you typically use?',
-        options: ['Minimal Usage', 'Moderate', 'Average Usage', 'High Usage'],
-        values: [100, 1510, 2510, 4500]
+        question: 'How would you describe your water usage ?',
+        options: ['Very efficient (short showers, full laundry loads)', 'Average usage', 'High usage (long showers, frequent laundry/dishwasher)'],
+        values: [100, 250, 400],  // CO2e values in kg/year
     },
     
 ]
@@ -95,6 +104,7 @@ function handleQuestion(index) {
                 currentQuestionIndex = questions.length-1;
                 console.log('end quiz')
                 // display results function
+                displayResults(userAnswer)
                 return 1;
             }
         
@@ -114,14 +124,80 @@ function handleQuestion(index) {
 }
 
 
+function displayResults(userAnswer) {
+    // let carbonEquivalent = [];
+    const number = 90
+    const renderFootprint = document.getElementById('totalFootprint');
+    const unit = document.querySelector('.unit');
+    const myChart = document.getElementById('myCanvas').getContext('2d');
+
+        Chart.defaults.font.family = 'Poppins';
+        Chart.defaults.font.size = 20;
+
+        let carbonEmissonChart = new Chart(myChart, {
+            type: "bar",
+            data: {
+                labels: ['Electricity', 'Commute', 'Transportation', 'Diet'],
+                datasets: [{
+                    label: 'C02 Emission',
+                    data: [2000, 3000, 4000, 400],
+                    backgroundColor: ['red', 'blue', 'pink', 'yellow'],
+                    hoverBorderWidth: 2,
+                    hoverBorderColor: 'grey',
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Your Carbon Footprint Emissions",
+                        color: 'white',
+
+                        font: {
+
+                            size: 30,
+                        }
+                    },
+
+                    // legend: {
+                    //     display: false
+                    // }
+    
+                }
+            },
+
+        })
+
+    let totalFootprint = 0;
+    // iterate through the object to get the values;
+    for (let carbonEquivalent of Object.values(userAnswer)) {
+        totalFootprint += Number(carbonEquivalent)
+    }
+
+    renderFootprint.innerText = `${number}t`;
+    unit.textContent = 't'
+
+    console.log(totalFootprint)
+}
+
+
+
+
+
+
+
+let obj = {
+    name: 5
+}
+displayResults(obj)
+
 handleQuestion(currentQuestionIndex)
+
 
 backBtn.addEventListener('click', (evt) => {
     currentQuestionIndex--
     console.log(currentQuestionIndex)
 
     const currentIndex = handleQuestion(currentQuestionIndex);
-    // console.log(currentIndex)
-    // checkDuplicateValues(userAnswers, answerObj)
 
 })
