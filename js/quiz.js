@@ -12,14 +12,14 @@ const questions = [
         topic: 'Travel',
         question: 'How many flights do you take per year',
         options: ['None', '1-2 Short Flights', '3-5 Short Flights', '1-4 Long flights'],
-        values: [100, 1510, 2510, 4500]
+        values: [800, 1510, 2510, 4500]
     },
     
     {
         topic: 'Commute',
         question: 'If you drive, what is your approximate annual mileage?',
         options: ['I do not own a car', 'Low (under 5,000 miles)', 'Average (5,000-10,000 miles)', 'High (10,000-15,000 miles+) '],
-        values: [0, 1000, 2500, 4000],  // CO2e values in kg/year
+        values: [1450, 1000, 2500, 4000],  // CO2e values in kg/year
         info: 'Based on average emissions of 250g CO2e/mile for standard vehicles'
   
     }, 
@@ -28,22 +28,37 @@ const questions = [
         topic: 'Diet',
         question: 'What is your primary diet?',
         options: ['Vegan', 'Vegetarian', 'Pescatarian', 'Ominivore'],
-        values: [100, 1510, 2510, 4500]
+        values: [1200, 1510, 2510, 4500]
     },
+
     {
         topic: 'water',
         question: 'How would you describe your water usage ?',
         options: ['Very efficient (short showers, full laundry loads)', 'Average usage', 'High usage (long showers, frequent laundry/dishwasher)'],
-        values: [100, 250, 400],  // CO2e values in kg/year
+        values: [1300, 2500, 4000],  // CO2e values in kg/year
     },
-    
+
+    {
+        topic: 'Waste',
+        question: 'How thoroughly do you recycle?',
+        options: ['Comprehensive recycling and composting', 'Standard recycling (paper, plastic, glass)', 'Minimal recycling', 'No recycling'],
+        values: [1000, 2000, 3000, 4000],  // Multiplier to consumption emissions
+        info: 'Recycling reduces the carbon impact of consumption'
+      }    
 ]
 
 const currentQuestion = document.getElementById('currentQuestion')
 const topic = document.getElementById('topic')
 const answerContainer = document.getElementById('answerContainer');
 const quizProgress = document.getElementById('quizProgress');
-const backBtn = document.getElementById('backBtn')
+const backBtn = document.getElementById('backBtn');
+const advice = document.querySelector('.advice');
+
+let case1 = `
+                Your carbon foot print is measure in tonnes, 
+                and the values used where based of the research in 2021.
+                From your results, you carbon footprint is amazing, keep up!
+                `
 
 let currentQuestionIndex = 0
 const userAnswer = {}
@@ -96,21 +111,22 @@ function handleQuestion(index) {
 
             userAnswer[currQuestion.topic] = e.target.value;
 
-            console.log(userAnswer);
+            // console.log(userAnswer);
 
 
             if (currentQuestionIndex === questions.length-1) {
-                console.log(currentQuestionIndex, questions.length)
+                // console.log(currentQuestionIndex, questions.length)
                 currentQuestionIndex = questions.length-1;
                 console.log('end quiz')
                 // display results function
+                console.log(userAnswer)
+                document.querySelector('main').innerHTML = " "
                 displayResults(userAnswer)
                 return 1;
             }
         
 
             currentQuestionIndex++
-            console.log(currentQuestionIndex)
             handleQuestion(currentQuestionIndex)
 
 
@@ -125,59 +141,73 @@ function handleQuestion(index) {
 
 
 function displayResults(userAnswer) {
-    // let carbonEquivalent = [];
-    const number = 90
+    // these wil be used as data and label properties in chart object
+    let carbonEmissons = [];
+    let emissonSources = []
+
     const renderFootprint = document.getElementById('totalFootprint');
-    const unit = document.querySelector('.unit');
+    const unit = document.createElement('span');
+
     const myChart = document.getElementById('myCanvas').getContext('2d');
 
-        Chart.defaults.font.family = 'Poppins';
-        Chart.defaults.font.size = 20;
 
-        let carbonEmissonChart = new Chart(myChart, {
-            type: "bar",
-            data: {
-                labels: ['Electricity', 'Commute', 'Transportation', 'Diet'],
-                datasets: [{
-                    label: 'C02 Emission',
-                    data: [2000, 3000, 4000, 400],
-                    backgroundColor: ['red', 'blue', 'pink', 'yellow'],
-                    hoverBorderWidth: 2,
-                    hoverBorderColor: 'grey',
-                }]
-            },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: "Your Carbon Footprint Emissions",
-                        color: 'white',
 
-                        font: {
-
-                            size: 30,
-                        }
-                    },
-
-                    // legend: {
-                    //     display: false
-                    // }
-    
-                }
-            },
-
-        })
 
     let totalFootprint = 0;
-    // iterate through the object to get the values;
-    for (let carbonEquivalent of Object.values(userAnswer)) {
-        totalFootprint += Number(carbonEquivalent)
+    // extracting sources and values through the object to get the values;
+    for (let [source, value] of Object.entries(userAnswer)) {
+
+        totalFootprint += Number(value);
+        carbonEmissons.push(Number(value));
+
+        emissonSources.push(source);
     }
 
-    renderFootprint.innerText = `${number}t`;
-    unit.textContent = 't'
+    renderFootprint.innerText = `${(totalFootprint/1000).toFixed(2)}`;
+    unit.innerText = 't';
+    renderFootprint.appendChild(unit)
 
     console.log(totalFootprint)
+
+    advice.innerText = case1
+
+
+    Chart.defaults.font.family = 'Poppins';
+    Chart.defaults.font.size = 20;
+
+    let carbonConversion = carbonEmissons.map(val => val/1000);
+
+
+    let carbonEmissonChart = new Chart(myChart, {
+        type: "bar",
+        data: {
+            labels: emissonSources,
+            datasets: [{
+                label: 'C02 Emission',
+                data:carbonConversion,
+                backgroundColor: ['red', 'blue', 'pink', 'yellow'],
+                hoverBorderWidth: 2,
+                hoverBorderColor: 'grey',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Your Carbon Footprint Emissions",
+                    color: 'white',
+
+                    font: {
+                        size: 30,
+                    }
+                },
+
+            }
+        },
+
+    })
+
+
 }
 
 
@@ -185,18 +215,13 @@ function displayResults(userAnswer) {
 
 
 
-
-let obj = {
-    name: 5
-}
-displayResults(obj)
 
 handleQuestion(currentQuestionIndex)
 
 
 backBtn.addEventListener('click', (evt) => {
     currentQuestionIndex--
-    console.log(currentQuestionIndex)
+    // console.log(currentQuestionIndex)
 
     const currentIndex = handleQuestion(currentQuestionIndex);
 
