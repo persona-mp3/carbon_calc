@@ -1,0 +1,69 @@
+button {
+    all: unset;
+    padding: .6rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    color: white;
+    text-align: center;
+    width: fit-content;
+    font-size: 1.35rem;
+    border: $white-border;
+    border-radius: .4rem;
+    transition: all ease 0.5s;   
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.cta-btn {
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    width: 200px;
+    transition: all ease 0.5s;
+}
+
+.cta-btn:hover {
+    // background-color: $hover-color;
+    cursor: pointer;
+}
+
+.sec-btn {
+    background-color: rgba(29, 28, 28, 0.26);
+}
+
+
+a {
+    all: unset;
+    padding: .4rem;
+    color: rgb(255, 255, 255);
+    font-size: 1.25rem;
+    text-decoration: underline;
+    transition: all ease 0.5s;
+}
+
+
+a:hover {
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+
+p{
+    font-size: 1.75rem;
+    font-weight: 300;
+}
+
+
+
+
+
+h3 {
+    font-size: 3.18rem;
+    font-weight: 270;
+}
+
+
+
+

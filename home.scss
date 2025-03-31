@@ -1,0 +1,190 @@
+// FONT IMPORTS
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import '_variables';
+@import '_defaults';
+
+* {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(53, 51, 51);
+    color: white;
+}
+
+nav {
+    color: white;
+    background-color:transparent;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 0;
+    position: sticky;
+    width: 100%;
+    padding: .2rem;
+
+
+    .nav-wrapper {
+        @include flexRow();
+        margin: 0 auto;
+        justify-content: space-between;
+        // background-color: rgba(245, 245, 220, 0.315);
+        width: 80%;
+        padding: .8rem;
+        border-radius: 2rem;
+        color: white;
+
+    }
+
+    .link-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+
+    }
+}
+
+nav .logo {
+    font-size: 1.85rem;
+    font-weight: 700;
+    align-self: center;
+    color: white;
+    width: fit-content;
+    position: relative;;
+
+
+    // &::before {
+    //     content: " ";
+    //     position: absolute;
+    //     width: 60%;
+    //     margin-left: -2%;
+    //     height: 80%;
+    //     background-color: rgb(55, 168, 106);
+    //     z-index: -999;
+    //     border-radius: .4rem;
+    //     top: 10%;;
+    // }
+}
+
+
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+main {
+    width: 90%;
+    // background-color: rgb(24, 117, 97);
+    margin: 0 auto;
+}
+
+.hero {
+    @include flexColumn();
+    align-items: flex-start !important;
+}
+
+
+.hero-body {
+    width: 54%;
+    
+    & *{
+        margin-top: 2%''
+    }
+}
+.hero-header {
+    font-size: 6rem;
+    font-weight: 400;
+    width: fit-content;
+    text-align: left;
+    line-height: 120%;
+    width: 60%;
+    margin-top: 1%;
+}
+
+
+
+.hero {
+
+    .button-container {
+        @include flexRow();
+        width: fit-content;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1%;
+    }
+}
+
+
+// THE SERVICES SECTION WILL ACT AS THE CAROUSEL CONTAINER#
+.services {
+    @include flexRow();
+    flex: 0 0  auto;
+    width: 100%;
+    margin: 4% auto;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+
+.card-wrapper {
+    @include flexColumn();
+    max-width: 34rem;
+    align-items: flex-start;
+    padding: .4rem;
+    border: .5px solid white;
+    border-radius: .6rem;
+    gap: 1rem;
+    &   img {
+        width: 100%;
+        // height: 400px;
+        // object-fit: cover;
+        aspect-ratio: 16/9 ;
+        border-radius: .4rem;
+    }
+
+    .card-link {
+        color: rgb(10, 161, 231);
+        font-weight: 500;
+        width: fit-content;
+        @include flexRow;
+        align-items:  center;
+    }
+}
+
+
+.card-body {
+    width: 100%;
+}
+.card-link .icon-wrapper {
+    align-self: center;
+    width: fit-content;
+    @include flexRow();
+
+    & img, .icon-img {
+        object-fit: unset;
+        max-width: 2rem !important;
+        width: 80%;
+        max-height: 1.89rem !important;
+        background-color: yellow;
+    }
+}
+
+
+.about {
+    padding: 26rem;
+    width: 100%;
+    border-top-left-radius: .8rem;
+    border-top-right-radius: .8rem;
+    background-color: rgba(174, 230, 218, 1);
+}
